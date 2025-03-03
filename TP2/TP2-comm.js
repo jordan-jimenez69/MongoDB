@@ -1,3 +1,3 @@
 db.ecommerce_produits.find({
-    "commentaires": { $size: 2 }
+    "commentaires": { $size: 3 }
     });
