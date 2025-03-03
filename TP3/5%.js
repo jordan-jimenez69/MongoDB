@@ -1,4 +1,4 @@
 db.ecommerce_produits.updateMany(
-    { categorie: "audio" }, 
+    { categorie: "Audio" }, 
     { $mul: { prix: 1.05 } }
   );
