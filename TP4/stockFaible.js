@@ -3,3 +3,4 @@ db.ecommerce_produits.find( {
     stock: { $lt: 5 },
 }
 );
+//afficher les produits qui ont un stock inférieur à 5 et qui sont premium
