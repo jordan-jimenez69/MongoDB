@@ -30,9 +30,37 @@ db.bibliotheques.insertMany([
         coordinates: [[
           [4.8600, 45.7550], [4.8750, 45.7550], 
           [4.8750, 45.7650], [4.8600, 45.7650], 
-          [4.8600, 45.7550] // Boucle fermée
+          [4.8600, 45.7550] 
         ]]
       }
     }
+    // ajouter d'autres bibliothèques...
   ]);
   
+
+db.utilisateurs.createIndex({ "adresse.localisation": "2dsphere" })
+
+db.bibliotheques.createIndex({ localisation: "2dsphere" })
+
+db.utilisateurs.find({
+    "adresse.localisation": {
+        $near: {
+            $geometry: {
+                type: "Point",
+                coordinates: [2.3522, 48.8566]
+            },
+            $maxDistance: 5000
+        }
+    }
+}).limit(5)
+
+db.bibliotheques.find({
+    localisation: {
+        $near: {
+            $geometry: {
+                type: "Point",
+                coordinates: [2.3522, 48.8566]
+            }
+        }
+    }
+})

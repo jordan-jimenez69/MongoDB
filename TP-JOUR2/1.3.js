@@ -25,5 +25,11 @@ db.createCollection("sessions_utilisateurs", {
     }
 })
 
+db.sessions_utilisateurs.insertOne({
+    utilisateur_id: ObjectId("67c6ba637143276953007283"),
+    date_derniere_activite: new Date(),
+    donnees_session: {navigateur: "Edge"}
+    })    
+
 
 db.sessions_utilisateurs.createIndex({ date_derniere_activite: 1 }, { expireAfterSeconds: 1800 })
