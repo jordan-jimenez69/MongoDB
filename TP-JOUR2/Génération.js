@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 async function main() {
-    const uri = "mongodb+srv://jimenezjordanpro:MDP@mongo-cours.9tuz2.mongodb.net/?retryWrites=true&w=majority&appName=Mongo-Cours";
+    const uri = "mongodb+srv://jimenezjordanpro:Fruuito69@mongo-cours.9tuz2.mongodb.net/?retryWrites=true&w=majority&appName=Mongo-Cours";
     const client = new MongoClient(uri);
 
     try {
@@ -12,19 +12,19 @@ async function main() {
         const livres = [];
         for (let i = 0; i < 1000; i++) {
             livres.push({
-                titre: `Livre ${i + 1}`,
-                auteur: `Auteur ${i + 1}`,
-                annee_publication: 1900 + (i % 121),
-                editeur: `Editeur ${i + 1}`,
-                genre: ["Genre1", "Genre2"],
-                nombre_pages: 100 + (i % 400),
+                titre: `Livres ${i + 1}`,
+                auteur: `Auteurs ${i + 1}`,
+                annee_publication: 1900 + i,
+                editeur: `Editeurs ${i + 1}`,
+                genre: [`Genre${i % 3 + 1}`, `Genre${i % 4 + 2}`],
+                nombre_pages: 100 + i,
                 langue: "Français",
-                disponible: true,
-                stock: 1 + (i % 10), 
-                note_moyenne: (Math.random() * 5).toFixed(1), 
-                description: `Description du livre ${i + 1}`,
-                prix: (5 + (i % 20)).toFixed(2),
-                isbn: `97820706127${(i % 100).toString().padStart(2, '0')}`,
+                disponible: Math.random() < 0.8, 
+                stock: Math.floor(Math.random() * 10) + 1,
+                note_moyenne: (Math.random() * 5).toFixed(1),
+                description: `Description du livres ${i + 1}`,
+                prix: (5 + Math.random() * 20).toFixed(2), 
+                isbn: `9782070${String(i).padStart(6, '0')}`,
                 date_ajout: new Date(`2023-${(i % 12 + 1).toString().padStart(2, '0')}-${(i % 28 + 1).toString().padStart(2, '0')}`)
             });
         }
