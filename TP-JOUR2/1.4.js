@@ -21,7 +21,7 @@ db.livres.insertOne({
     date_ajout: new Date()
 })
 
-db.livres.createIndex({ titre: 1 }, { partialFilterExpression: { disponible: true } })
+db.livres.createIndex({ titre: 2 }, { partialFilterExpression: { disponible: true } })
 
 db.setProfilingLevel(1, { slowms: 100 })
 
