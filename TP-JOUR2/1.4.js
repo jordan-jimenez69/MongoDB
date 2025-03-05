@@ -20,3 +20,13 @@ db.livres.insertOne({
     isbn: "9782070000004", // ISBN dupliqué
     date_ajout: new Date()
 })
+
+db.livres.createIndex({ titre: 1 }, { partialFilterExpression: { disponible: true } })
+
+db.setProfilingLevel(1, { slowms: 100 })
+
+db.system.profile.find({ millis: { $gt: 100 } })
+
+db.livres.getIndexes()
+
+db.livres.dropIndex("titre_1_auteur_1_prix_1")
