@@ -12,3 +12,27 @@ db.utilisateurs.updateOne(
         }
     }
 );
+
+db.bibliotheques.insertMany([
+    {
+      nom: "Bibliothèque Municipale de Lyon",
+      adresse: {
+        rue: "30 Boulevard Marius Vivier Merle",
+        ville: "Lyon",
+        code_postal: "69003"
+      },
+      localisation: {
+        type: "Point",
+        coordinates: [4.8685, 45.7602]
+      },
+      zone_service: {
+        type: "Polygon",
+        coordinates: [[
+          [4.8600, 45.7550], [4.8750, 45.7550], 
+          [4.8750, 45.7650], [4.8600, 45.7650], 
+          [4.8600, 45.7550] // Boucle fermée
+        ]]
+      }
+    }
+  ]);
+  
