@@ -1,6 +1,7 @@
 //{ nom: "Lyon", coordinates: [4.8357, 45.7640] },
 //{ nom: "Marseille", coordinates: [5.3698, 43.2965] }
 
+// 2.1
 db.utilisateurs.updateOne(
     { _id: ObjectId("67c6ba637143276953007283") },
     {
@@ -42,6 +43,7 @@ db.utilisateurs.createIndex({ "adresse.localisation": "2dsphere" })
 
 db.bibliotheques.createIndex({ localisation: "2dsphere" })
 
+//2.2
 db.utilisateurs.find({
     "adresse.localisation": {
         $near: {
@@ -60,6 +62,66 @@ db.bibliotheques.find({
             $geometry: {
                 type: "Point",
                 coordinates: [2.3522, 48.8566]
+            }
+        }
+    }
+})
+
+db.bibliotheques.aggregate([
+    {
+        $geoNear: {
+            near: { type: "Point", coordinates: [2.3522, 48.8566] },
+            distanceField: "distance",
+            spherical: true
+        }
+    },
+    {
+        $sort: { distance: 1 }
+    }
+])
+
+//2.3 
+db.utilisateurs.find({
+    "adresse.localisation": {
+      $geoWithin: {
+        $geometry: {
+          type: "Polygon",
+          coordinates: [[
+            [2.3500, 48.8500], [2.3600, 48.8500], 
+            [2.3600, 48.8600], [2.3500, 48.8600], 
+            [2.3500, 48.8500]
+          ]]
+        }
+      }
+    }
+  });
+
+
+  db.utilisateurs.find({
+    "adresse.localisation": {
+        $geoWithin: {
+            $geometry: {
+                type: "Polygon",
+                coordinates: [[[2.34, 48.85], [2.36, 48.85], [2.36, 48.84], [2.34, 48.84], [2.34, 48.85]]]
+            }
+        }
+    }
+})
+
+db.rues.insertOne({
+    nom: "Rue de Rivoli",
+    localisation: {
+        type: "LineString",
+        coordinates: [[2.3522, 48.8566], [2.3622, 48.8566]]
+    }
+})
+
+db.bibliotheques.find({
+    zone_service: {
+        $geoIntersects: {
+            $geometry: {
+                type: "LineString",
+                coordinates: [[2.3522, 48.8566], [2.3622, 48.8566]]
             }
         }
     }
