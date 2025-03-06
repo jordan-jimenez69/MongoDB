@@ -148,3 +148,22 @@ db.livraisons.insertOne({
         coordinates: [[2.3522, 48.8566], [2.3622, 48.8566]]
     }
 })
+
+db.livraisons.updateOne(
+    { _id: ObjectId("67c99737e0d68643ef98cad0") },
+    { $set: { "position_actuelle.coordinates": [2.3582, 48.8566] } }
+)
+
+//creer un index geospatial pour que cela marche
+db.livraisons.createIndex({ position_actuelle: "2dsphere" })
+db.livraisons.find({
+    position_actuelle: {
+        $near: {
+            $geometry: {
+                type: "Point",
+                coordinates: [2.3522, 48.8566]
+            },
+            $maxDistance: 1000 // 1 km
+        }
+    }
+})
