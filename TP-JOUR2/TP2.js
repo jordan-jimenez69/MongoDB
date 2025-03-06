@@ -128,3 +128,23 @@ db.bibliotheques.find({
 })
 
 //2.4
+db.livraisons.insertOne({
+    livre_id: ObjectId("..."),
+    utilisateur_id: ObjectId("..."),
+    point_depart: {
+        type: "Point",
+        coordinates: [2.3522, 48.8566]
+    },
+    point_arrivee: {
+        type: "Point",
+        coordinates: [2.3622, 48.8566]
+    },
+    position_actuelle: {
+        type: "Point",
+        coordinates: [2.3572, 48.8566]
+    },
+    itineraire_planifie: {
+        type: "LineString",
+        coordinates: [[2.3522, 48.8566], [2.3622, 48.8566]]
+    }
+})
